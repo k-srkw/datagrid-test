@@ -9,6 +9,11 @@ projects:
       location: 'https://github.com/redhat-developer/redhat-datagrid-tutorials.git'
       startPoint: RHDG_8.3.1
       type: git
+  - name: datagrid-test
+    source:
+      location: 'https://github.com/k-srkw/datagrid-test.git'
+      startPoint: main
+      type: git
 components:
   - id: redhat/java11/latest
     preferences:
