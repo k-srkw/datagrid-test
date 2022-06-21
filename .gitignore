@@ -1,0 +1,5 @@
+redhat-datagrid-*-server
+*.zip
+redhat-datagrid-tutorials
+.DS_Store
+.envrc

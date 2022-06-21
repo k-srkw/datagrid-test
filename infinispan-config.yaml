@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logging-config
+  namespace: rhdg-test
+data:
+  log4j.xml: >
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration name="InfinispanServerConfig" monitorInterval="60" shutdownHook="disable">
+        <Appenders>
+            <!-- Colored output on the console -->
+            <Console name="STDOUT">
+                <PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable%n"/>
+            </Console>
+            <Console name="HR-ACCESS-STDOUT">
+                <PatternLayout pattern="%X{address} %X{user} [%d{dd/MMM/yyyy:HH:mm:ss Z}] &quot;%X{method} %m %X{protocol}&quot; %X{status} %X{requestSize} %X{responseSize} %X{duration}%n"/>
+            </Console>
+        </Appenders>
+
+        <Loggers>
+            <Root level="INFO">
+                <AppenderRef ref="STDOUT" level="TRACE"/>
+            </Root>
+            <Logger name="org.infinispan.HOTROD_ACCESS_LOG" level="TRACE">
+                <AppenderRef ref="HR-ACCESS-STDOUT"/>
+            </Logger>
+            <Logger name="org.infinispan.server.core.backup" level="DEBUG"/>
+        </Loggers>
+    </Configuration>

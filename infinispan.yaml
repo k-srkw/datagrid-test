@@ -1,0 +1,38 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  annotations:
+    infinispan.org/monitoring: 'true'
+  name: example-infinispan
+  namespace: rhdg-test
+  labels:
+    com.redhat.component-name: Data_Grid
+    com.redhat.component-type: application
+    com.redhat.component-version: 8.3.1
+    com.redhat.product-name: Red_Hat_Runtimes
+    com.redhat.product-version: 2022-Q2
+spec:
+  configMapName: "logging-config"
+  security:
+    authorization:
+      enabled: false
+    endpointAuthentication: true
+    endpointEncryption:
+      clientCert: None
+      type: None
+    endpointSecretName: example-infinispan-generated-secret
+  container:
+    memory: 1Gi
+  expose:
+    type: Route
+  service:
+    replicationFactor: 2
+    type: Cache
+  configListener:
+    enabled: true
+  upgrades:
+    type: Shutdown
+  replicas: 1
+  logging:
+    categories:
+      org.infinispan.HOTROD_ACCESS_LOG: trace
